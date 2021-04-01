@@ -11,18 +11,21 @@ class Map extends StatefulWidget {
 }
 
 class _MapState extends State<Map> {
+  Function _onMapCreated =(GoogleMapController controller){
+    controller.setMapStyle(Utils.mapStyle);
+  };
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: GoogleMap(
+        onMapCreated: _onMapCreated,
         mapToolbarEnabled: true,
         zoomControlsEnabled: true,
         initialCameraPosition: CameraPosition(
-          target: LatLng(33.9617, 118.3531),
+          target: LatLng(33.9617, -118.3531),
           zoom: 15,
         ),
-        mapType: MapType.hybrid,
       ),
     );
   }
@@ -78,7 +81,7 @@ class Utils {
     "elementType": "labels",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -126,7 +129,7 @@ class Utils {
     "elementType": "labels.text",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -143,7 +146,7 @@ class Utils {
     "featureType": "poi.business",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -161,7 +164,7 @@ class Utils {
     "elementType": "labels.text",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
@@ -233,7 +236,7 @@ class Utils {
     "elementType": "labels",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
