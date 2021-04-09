@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:places_app/screens/map.dart';
 import 'package:places_app/screens/home_screen.dart';
 import 'package:places_app/screens/saved_places_screen.dart';
-import 'package:places_app/screens/user_screen.dart';
+import 'package:places_app/screens/famous_places.dart';
 
 void main() => runApp(Places());
 

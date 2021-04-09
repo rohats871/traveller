@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:places_app/screens/map.dart';
 import 'package:places_app/screens/saved_places_screen.dart';
-import 'package:places_app/screens/user_screen.dart';
-
+import 'package:places_app/screens/famous_places.dart';
+import 'Category_listview.dart';
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
 
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     }),
                 IconButton(
                     icon: Icon(
-                      LineIcons.userAstronaut,
+                      LineIcons.splotch,
                       color: Color(0xFF40C4FF),
                       size: 30,
                     ),
@@ -281,110 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ///
               ///
               ///
-              Expanded(
-                flex: 3,
-                child: Container(
-                  height: 200,
-                  width: 380,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.transparent,
-                  ),
-                  child: ListView(
-                    // This next line does the trick.
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/castle.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/Musuem.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/castle.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/Musuem.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/castle.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            fit: BoxFit.fitHeight,
-                            image: AssetImage('images/Musuem.png'),
-                          ),
-                          borderRadius: BorderRadius.circular(35),
-                          border: Border.all(color: Colors.grey),
-                        ),
-                        height: 250,
-                        width: 150,
-                      ),
-                    ],
-                  ),
-                ),
-              )
+              CategoryListView(),
             ],
           ),
         ),
@@ -392,3 +289,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
