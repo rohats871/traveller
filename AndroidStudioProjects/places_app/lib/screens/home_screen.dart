@@ -63,12 +63,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     LineIcons.igloo,
                     color: Colors.pink[600],
                     size: 30,
+
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, HomeScreen.id);
                   },
                 ),
                 IconButton(
+                  tooltip: 'Location',
                     icon: Icon(
                       LineIcons.mapPin,
                       color: Color(0xFF40C4FF),

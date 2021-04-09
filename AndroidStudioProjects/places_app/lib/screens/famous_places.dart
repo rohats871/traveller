@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-// final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
 
 void main() {
   runApp(UserScreen());
@@ -23,7 +23,7 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Color(0xFF28313b)),
+      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: Colors.grey[900]),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Center(
