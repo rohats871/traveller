@@ -4,6 +4,7 @@ import 'package:places_app/screens/map.dart';
 import 'package:places_app/screens/saved_places_screen.dart';
 import 'package:places_app/screens/famous_places.dart';
 import 'Category_listview.dart';
+
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
 
@@ -43,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
               letterSpacing: 2.0,
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(40),
@@ -53,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: SizedBox(
           height: 70,
           child: BottomAppBar(
-            color: Colors.white,
+            color: Colors.transparent,
             elevation: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -63,14 +64,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     LineIcons.igloo,
                     color: Colors.pink[600],
                     size: 30,
-
                   ),
                   onPressed: () {
                     Navigator.pushNamed(context, HomeScreen.id);
                   },
                 ),
                 IconButton(
-                  tooltip: 'Location',
+                    tooltip: 'Location',
                     icon: Icon(
                       LineIcons.mapPin,
                       color: Color(0xFF40C4FF),
@@ -291,4 +291,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
