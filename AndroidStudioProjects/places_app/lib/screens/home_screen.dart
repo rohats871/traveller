@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     LineIcons.igloo,
-                    color: Colors.pink[600],
+                    color: Colors.black,
                     size: 30,
                   ),
                   onPressed: () {
