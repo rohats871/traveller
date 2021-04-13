@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:line_icons/line_icons.dart';
 
 const apikey = 'AIzaSyBE8GyqTuahM89b0wPUAIeROW1-lD4rP4g';
 
@@ -8,23 +10,67 @@ class Map extends StatefulWidget {
 
   @override
   _MapState createState() => _MapState();
+
+}
+void getLocation() async {
+  Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.best);
+  print(position);
 }
 
 class _MapState extends State<Map> {
-  Function _onMapCreated =(GoogleMapController controller){
+  Function _onMapCreated = (GoogleMapController controller) {
     controller.setMapStyle(Utils.mapStyle);
   };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: GoogleMap(
-        onMapCreated: _onMapCreated,
-        mapToolbarEnabled: true,
-        zoomControlsEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(33.9617, -118.3531),
-          zoom: 15,
+      body: Stack(
+        children: [
+          GoogleMap(
+            myLocationButtonEnabled: false,
+            onMapCreated: _onMapCreated,
+            mapToolbarEnabled: false,
+            zoomControlsEnabled: true,
+            zoomGesturesEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(33.9617, -118.3531),
+              zoom: 15,
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(icon: Icon(LineIcons.splotch,color:Color(0xFFDDD2B2) ,), onPressed: null, iconSize: 30,),
+              IconButton(icon: Icon(LineIcons.searchLocation), onPressed: null),
+              IconButton(icon: Icon(LineIcons.plus), onPressed: null),
+              IconButton(icon: Icon(LineIcons.splotch), onPressed: null),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Color(0xFFDDD2B2),
+        isExtended: false,
+        shape: CircleBorder(
+          side: BorderSide(
+            width: 1,
+            color: Color(0xFFDDD2B2),
+          )
+        ),
+        onPressed: () {
+          getLocation();
+        },
+        label: Text(
+          'Where the Fuck I Am!',
+          style: TextStyle(color: Colors.grey[600]),
+        ),
+        icon: Icon(
+          LineIcons.mapPin,
+          size: 30,
+          color: Colors.black,
         ),
       ),
     );
