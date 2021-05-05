@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 
 const apikey = 'AIzaSyBE8GyqTuahM89b0wPUAIeROW1-lD4rP4g';
@@ -10,8 +10,8 @@ class Map extends StatefulWidget {
 
   @override
   _MapState createState() => _MapState();
-
 }
+
 void getLocation() async {
   Position position = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.best);
@@ -32,22 +32,13 @@ class _MapState extends State<Map> {
           GoogleMap(
             myLocationButtonEnabled: false,
             onMapCreated: _onMapCreated,
-            mapToolbarEnabled: false,
+            mapToolbarEnabled: true,
             zoomControlsEnabled: true,
             zoomGesturesEnabled: true,
             initialCameraPosition: CameraPosition(
-              target: LatLng(33.9617, -118.3531),
+              target: LatLng(-12.0464, -77.0428),
               zoom: 15,
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(icon: Icon(LineIcons.splotch,color:Color(0xFFDDD2B2) ,), onPressed: null, iconSize: 30,),
-              IconButton(icon: Icon(LineIcons.searchLocation), onPressed: null),
-              IconButton(icon: Icon(LineIcons.plus), onPressed: null),
-              IconButton(icon: Icon(LineIcons.splotch), onPressed: null),
-            ],
           ),
         ],
       ),
@@ -55,11 +46,10 @@ class _MapState extends State<Map> {
         backgroundColor: Color(0xFFDDD2B2),
         isExtended: false,
         shape: CircleBorder(
-          side: BorderSide(
-            width: 1,
-            color: Color(0xFFDDD2B2),
-          )
-        ),
+            side: BorderSide(
+          width: 1,
+          color: Color(0xFFDDD2B2),
+        )),
         onPressed: () {
           getLocation();
         },

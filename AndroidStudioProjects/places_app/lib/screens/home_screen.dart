@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:places_app/bottom_sheet.dart';
+import 'package:places_app/constants.dart';
+import 'package:places_app/screens/famous_places.dart';
 import 'package:places_app/screens/map.dart';
 import 'package:places_app/screens/saved_places_screen.dart';
-import 'package:places_app/screens/famous_places.dart';
+
 import 'Category_listview.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Widget buildBottomSheet;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,27 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          toolbarHeight: 50.0,
-          leading: Icon(
-            LineIcons.cog,
-            color: Colors.pink[600],
-            size: 30,
+          toolbarHeight: 50,
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Map.id);
+            },
+            child: Icon(
+              LineIcons.cog,
+              color: kConstantGoldColor,
+              size: 28,
+            ),
           ),
           centerTitle: true,
-          actions: [
-            Icon(
-              Icons.search,
-              color: Color(0xFF40C4FF),
-              size: 30,
-            ),
-          ],
           title: Text(
-            'Traveler',
+            'Segway',
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
               fontFamily: 'CinzelDecorative',
-              color: Colors.grey[800],
-              letterSpacing: 2.0,
+              color: Color(0xFF30475e),
+              letterSpacing: 3,
             ),
           ),
           backgroundColor: Colors.transparent,
@@ -62,18 +66,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                   icon: Icon(
                     LineIcons.igloo,
-                    color: Colors.pink[600],
+                    color: Color(0xFFDDD2B2),
                     size: 30,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, HomeScreen.id);
-                  },
                 ),
                 IconButton(
                     tooltip: 'Location',
                     icon: Icon(
                       LineIcons.mapPin,
-                      color: Color(0xFF40C4FF),
+                      color: Color(0xFF30475e),
                       size: 30,
                     ),
                     onPressed: () {
@@ -82,21 +83,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 IconButton(
                     icon: Icon(
                       LineIcons.alternateCloudDownload,
-                      color: Color(0xFF40C4FF),
+                      color: Color(0xFF30475e),
                       size: 30,
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, SavedPlaces.id);
                     }),
                 IconButton(
-                    icon: Icon(
-                      LineIcons.splotch,
-                      color: Color(0xFF40C4FF),
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, UserScreen.id);
-                    }),
+                  icon: Icon(
+                    LineIcons.splotch,
+                    color: Color(0xFF30475e),
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, UserScreen.id);
+                  },
+                ),
               ],
             ),
           ),
@@ -133,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.white),
+                      color: Colors.transparent),
 
                   ///Here is the box color
                   height: 200,
@@ -142,123 +144,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 10.0,
+                        height: 8.0,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: Container(
                           child: Text(
-                            'Category',
+                            'Nearby Attractions',
                             style: TextStyle(
                                 fontFamily: 'CinzelDecorative',
-                                fontSize: 20,
+                                fontSize: 15,
                                 letterSpacing: 2,
-                                color: Colors.grey[700],
+                                color: Color(0xFF222831),
                                 height: 1.5),
                           ),
                           color: Colors.transparent,
                         ),
                       ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.pink[600]),
-                                color: Colors.white),
-                            height: 100,
-                            width: 70,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LineIcons.babyCarriage,
-                                  size: 40,
-                                  color: Colors.lightBlueAccent,
-                                ),
-                                Text(
-                                  'Museums',
-                                  style: TextStyle(fontSize: 11.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.pink[600]),
-                                color: Colors.white),
-                            height: 100,
-                            width: 70,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LineIcons.atom,
-                                  size: 40,
-                                  color: Colors.lightBlueAccent,
-                                ),
-                                Text(
-                                  'Museums',
-                                  style: TextStyle(fontSize: 11.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.pink[600]),
-                                color: Colors.white),
-                            height: 100,
-                            width: 70,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LineIcons.dharmachakra,
-                                  size: 40,
-                                  color: Colors.lightBlueAccent,
-                                ),
-                                Text(
-                                  'Theme Park',
-                                  style: TextStyle(fontSize: 11.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(color: Colors.pink[600]),
-                                color: Colors.white),
-                            height: 100,
-                            width: 70,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  LineIcons.plus,
-                                  size: 40,
-                                  color: Colors.lightBlueAccent,
-                                ),
-                                Text(
-                                  'More',
-                                  style: TextStyle(fontSize: 11.0),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      CategoryListView(),
                     ],
                   ),
                 ),
-                flex: 2,
               ),
               SizedBox(
                 height: 10.0,
@@ -267,11 +173,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.topLeft,
                 padding: EdgeInsets.all(9),
                 child: Text(
-                  'Nearby Places',
+                  'Popular Categories',
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 15,
                       letterSpacing: 2,
-                      color: Colors.grey[700],
+                      color: Color(0xFF222831),
                       fontFamily: 'CinzelDecorative',
                       height: 1),
                 ),
@@ -283,7 +189,56 @@ class _HomeScreenState extends State<HomeScreen> {
               ///
               ///
               ///
-              CategoryListView(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CategoryCard(
+                        icon: LineIcons.fortAwesome, label: 'Fort/Castle'),
+                    CategoryCard(icon: LineIcons.paw, label: 'Zoo'),
+                    CategoryCard(
+                      icon: LineIcons.dragon,
+                      label: 'Dungeon',
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                MoreCategories());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(
+                              color: kConstantGoldColor,
+                            ),
+                            color: Colors.transparent),
+                        height: 80,
+                        width: 80,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              LineIcons.plus,
+                              size: 40,
+                              color: kConstantGoldColor,
+                            ),
+                            Text(
+                              'More',
+                              style: TextStyle(
+                                fontSize: 11.0,
+                                color: Color(0xFF222831),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

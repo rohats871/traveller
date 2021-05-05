@@ -1,112 +1,103 @@
 import 'package:flutter/material.dart';
-
+import 'package:places_app/constants.dart';
 
 class CategoryListView extends StatelessWidget {
-  const CategoryListView({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 3,
       child: Container(
-        height: 200,
-        width: 380,
+        padding: EdgeInsets.all(5.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(30.0),
           color: Colors.transparent,
         ),
         child: ListView(
           // This next line does the trick.
           scrollDirection: Axis.horizontal,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/castle.png'),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/castle.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/Musuem.png'),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/Musuem.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/castle.png'),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/castle.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/Musuem.png'),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/Musuem.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/castle.png'),
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/castle.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
-            SizedBox(
-              width: 10,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: AssetImage('images/Musuem.png'),
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Container(
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitHeight,
+                    image: AssetImage('images/Musuem.png'),
+                  ),
+                  borderRadius: BorderRadius.circular(35),
+                  border: Border.all(color: kConstantGoldColor),
                 ),
-                borderRadius: BorderRadius.circular(35),
-                border: Border.all(color: Colors.grey),
               ),
-              height: 250,
-              width: 150,
             ),
           ],
         ),
