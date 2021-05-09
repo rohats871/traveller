@@ -1,13 +1,3 @@
-// import 'package:flutter/material.dart';
-//
-// class UserScreen extends StatelessWidget {
-//  static const String id = 'user_screen';
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// };
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

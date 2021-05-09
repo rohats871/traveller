@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:places_app/constants.dart';
 
-const apikey = 'AIzaSyBE8GyqTuahM89b0wPUAIeROW1-lD4rP4g';
+const apikey = 'AIzaSyCx1N0ICftWS4NAX-oIiDg_7lRzTTcSHBc';
+const placesURL =
+    'https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=$apikey';
+const placesPhotoURL =
+    'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=$apikey';
 
 class Map extends StatefulWidget {
   static const String id = 'map';
@@ -12,16 +17,34 @@ class Map extends StatefulWidget {
   _MapState createState() => _MapState();
 }
 
+// void getLocation() async {
+//   Location location = Location();
+//   await location.getCurrentLocation;
+// }
+
 void getLocation() async {
-  Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best);
-  print(position);
+  try {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position);
+  } catch (e) {
+    print(e);
+    throw 'Location Not Found';
+  }
 }
 
 class _MapState extends State<Map> {
   Function _onMapCreated = (GoogleMapController controller) {
     controller.setMapStyle(Utils.mapStyle);
   };
+  String searchAddress;
+  //
+  //
+  @override
+  void initState() {
+    super.initState();
+    getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,38 +53,79 @@ class _MapState extends State<Map> {
       body: Stack(
         children: [
           GoogleMap(
+            compassEnabled: true,
             myLocationButtonEnabled: false,
             onMapCreated: _onMapCreated,
             mapToolbarEnabled: true,
             zoomControlsEnabled: true,
             zoomGesturesEnabled: true,
+            myLocationEnabled: true,
             initialCameraPosition: CameraPosition(
-              target: LatLng(-12.0464, -77.0428),
-              zoom: 15,
+              target: LatLng(-12.0954, -76.9947),
+              zoom: 12,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40.0),
+                    color: kConstantGoldColor,
+                    border: Border.all(
+                      color: kConstantGoldColor,
+                    ),
+                  ),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    cursorColor: Colors.black,
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Search Location..',
+                      fillColor: Colors.black,
+                      focusColor: Colors.white,
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          print('Button pressed');
+                        },
+                        icon: Icon(
+                          LineIcons.locationArrow,
+                          size: 30,
+                          color: kConstantTextColor,
+                        ),
+                      ),
+                    ),
+                    onChanged: (val) {
+                      setState(() {
+                        searchAddress = val;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: Alignment(0.90, 0.90),
+            child: RawMaterialButton(
+              onPressed: () {
+                getLocation();
+              },
+              elevation: 5,
+              fillColor: kConstantGoldColor,
+              child: Icon(
+                LineIcons.mapPin,
+                color: kConstantTextColor,
+                size: 30,
+              ),
+              padding: EdgeInsets.all(15),
+              shape: CircleBorder(),
+            ),
+          )
         ],
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Color(0xFFDDD2B2),
-        isExtended: false,
-        shape: CircleBorder(
-            side: BorderSide(
-          width: 1,
-          color: Color(0xFFDDD2B2),
-        )),
-        onPressed: () {
-          getLocation();
-        },
-        label: Text(
-          'Where the Fuck I Am!',
-          style: TextStyle(color: Colors.grey[600]),
-        ),
-        icon: Icon(
-          LineIcons.mapPin,
-          size: 30,
-          color: Colors.black,
-        ),
       ),
     );
   }

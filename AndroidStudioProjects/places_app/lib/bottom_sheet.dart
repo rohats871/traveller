@@ -7,7 +7,6 @@ class MoreCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 1),
       color: Color(0xFF757575),
       child: Container(
         height: 600,
@@ -17,7 +16,7 @@ class MoreCategories extends StatelessWidget {
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
         ),
         child: GridView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
             crossAxisSpacing: 15,
@@ -64,6 +63,7 @@ class MoreCategories extends StatelessWidget {
             CategoryCard(icon: LineIcons.cashRegister, label: 'Casino'),
             CategoryCard(icon: LineIcons.trophy, label: 'Stadium'),
             CategoryCard(icon: LineIcons.drum, label: 'Opera'),
+            CategoryCard(icon: LineIcons.bowlingBall, label: 'Bowling Alley'),
           ],
         ),
       ),

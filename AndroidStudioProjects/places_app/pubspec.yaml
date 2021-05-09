@@ -30,13 +30,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   line_icons: ^2.0.1
   google_maps_flutter: ^2.0.2
-  geolocator: ^7.0.2
+  geolocator: ^7.0.3
   geocoder: ^0.2.1
+  json_serializable: ^4.1.0
+  google_maps_webservice: ^0.0.19
+  http: ^0.13.3
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
