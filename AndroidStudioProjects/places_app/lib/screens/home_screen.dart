@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 IconButton(
+                  onPressed: () {},
                   icon: Icon(
                     LineIcons.igloo,
                     color: Color(0xFFDDD2B2),

@@ -1,14 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:places_app/blocks/appilcation_block.dart';
 import 'package:places_app/constants.dart';
+import 'package:provider/provider.dart';
 
-const apikey = 'AIzaSyCx1N0ICftWS4NAX-oIiDg_7lRzTTcSHBc';
-const placesURL =
-    'https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJN1t_tDeuEmsRUsoyG83frY4&fields=name,rating,formatted_phone_number&key=$apikey';
-const placesPhotoURL =
-    'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=$apikey';
 
 class Map extends StatefulWidget {
   static const String id = 'map';
@@ -17,37 +14,15 @@ class Map extends StatefulWidget {
   _MapState createState() => _MapState();
 }
 
-// void getLocation() async {
-//   Location location = Location();
-//   await location.getCurrentLocation;
-// }
-
-void getLocation() async {
-  try {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position);
-  } catch (e) {
-    print(e);
-    throw 'Location Not Found';
-  }
-}
-
 class _MapState extends State<Map> {
   Function _onMapCreated = (GoogleMapController controller) {
     controller.setMapStyle(Utils.mapStyle);
   };
-  String searchAddress;
-  //
-  //
-  @override
-  void initState() {
-    super.initState();
-    getLocation();
-  }
 
   @override
   Widget build(BuildContext context) {
+    //
+    final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -61,7 +36,8 @@ class _MapState extends State<Map> {
             zoomGesturesEnabled: true,
             myLocationEnabled: true,
             initialCameraPosition: CameraPosition(
-              target: LatLng(-12.0954, -76.9947),
+              target: LatLng(applicationBlock.currentLocation.latitude,
+                  applicationBlock.currentLocation.longitude),
               zoom: 12,
             ),
           ),
@@ -98,11 +74,7 @@ class _MapState extends State<Map> {
                         ),
                       ),
                     ),
-                    onChanged: (val) {
-                      setState(() {
-                        searchAddress = val;
-                      });
-                    },
+                    onChanged: (val) {},
                   ),
                 ),
               ],
@@ -111,9 +83,7 @@ class _MapState extends State<Map> {
           Align(
             alignment: Alignment(0.90, 0.90),
             child: RawMaterialButton(
-              onPressed: () {
-                getLocation();
-              },
+              onPressed: () {},
               elevation: 5,
               fillColor: kConstantGoldColor,
               child: Icon(
