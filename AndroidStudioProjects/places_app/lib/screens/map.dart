@@ -6,7 +6,6 @@ import 'package:places_app/blocks/appilcation_block.dart';
 import 'package:places_app/constants.dart';
 import 'package:provider/provider.dart';
 
-
 class Map extends StatefulWidget {
   static const String id = 'map';
 
@@ -24,79 +23,85 @@ class _MapState extends State<Map> {
     //
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          GoogleMap(
-            compassEnabled: true,
-            myLocationButtonEnabled: false,
-            onMapCreated: _onMapCreated,
-            mapToolbarEnabled: true,
-            zoomControlsEnabled: true,
-            zoomGesturesEnabled: true,
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(applicationBlock.currentLocation.latitude,
-                  applicationBlock.currentLocation.longitude),
-              zoom: 12,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
-            child: Column(
+      body: (applicationBlock.currentLocation == null)
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Stack(
               children: [
                 Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40.0),
-                    color: kConstantGoldColor,
-                    border: Border.all(
-                      color: kConstantGoldColor,
+                  child: GoogleMap(
+                    compassEnabled: true,
+                    myLocationButtonEnabled: false,
+                    onMapCreated: _onMapCreated,
+                    mapToolbarEnabled: true,
+                    zoomControlsEnabled: true,
+                    zoomGesturesEnabled: true,
+                    myLocationEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(applicationBlock.currentLocation.latitude,
+                          applicationBlock.currentLocation.longitude),
+                      zoom: 12,
                     ),
-                  ),
-                  child: TextField(
-                    textAlign: TextAlign.center,
-                    cursorColor: Colors.black,
-                    autofocus: false,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search Location..',
-                      fillColor: Colors.black,
-                      focusColor: Colors.white,
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          print('Button pressed');
-                        },
-                        icon: Icon(
-                          LineIcons.locationArrow,
-                          size: 30,
-                          color: kConstantTextColor,
-                        ),
-                      ),
-                    ),
-                    onChanged: (val) {},
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: kConstantGoldColor,
+                          border: Border.all(
+                            color: kConstantGoldColor,
+                          ),
+                        ),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          cursorColor: Colors.black,
+                          autofocus: false,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Search Location..',
+                            fillColor: Colors.black,
+                            focusColor: Colors.white,
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                print('Button pressed');
+                              },
+                              icon: Icon(
+                                LineIcons.locationArrow,
+                                size: 30,
+                                color: kConstantTextColor,
+                              ),
+                            ),
+                          ),
+                          onChanged: (value) =>
+                              applicationBlock.searchPlaces(value),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Align(
+                  alignment: Alignment(0.90, 0.90),
+                  child: RawMaterialButton(
+                    onPressed: () {},
+                    elevation: 5,
+                    fillColor: kConstantGoldColor,
+                    child: Icon(
+                      LineIcons.mapPin,
+                      color: kConstantTextColor,
+                      size: 30,
+                    ),
+                    padding: EdgeInsets.all(15),
+                    shape: CircleBorder(),
+                  ),
+                )
               ],
             ),
-          ),
-          Align(
-            alignment: Alignment(0.90, 0.90),
-            child: RawMaterialButton(
-              onPressed: () {},
-              elevation: 5,
-              fillColor: kConstantGoldColor,
-              child: Icon(
-                LineIcons.mapPin,
-                color: kConstantTextColor,
-                size: 30,
-              ),
-              padding: EdgeInsets.all(15),
-              shape: CircleBorder(),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
@@ -376,3 +381,29 @@ class Utils {
 ]
    ''';
 }
+
+// Container(
+//   height: 300,
+//   width: double.infinity,
+//   decoration: BoxDecoration(
+//     borderRadius: BorderRadius.circular(15.0),
+//     color: kConstantGoldColor.withOpacity(0.6),
+//     backgroundBlendMode: BlendMode.darken,
+//   ),
+// ),
+// Container(
+//   height: 300,
+//   width: double.infinity,
+//   child: ListView.builder(
+//     itemCount: applicationBlock.searchResults.length,
+//     itemBuilder: (context, index) {
+//       return ListTile(
+//         title: Text(
+//           applicationBlock
+//               .searchResults[index].description,
+//           style: TextStyle(color: kConstantTextColor),
+//         ),
+//       );
+//     },
+//   ),
+// ),
