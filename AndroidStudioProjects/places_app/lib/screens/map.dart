@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:places_app/blocks/appilcation_block.dart';
 import 'package:places_app/constants.dart';
+import 'package:places_app/models/place.dart';
 import 'package:provider/provider.dart';
 
 class Map extends StatefulWidget {
@@ -17,54 +20,68 @@ class _MapState extends State<Map> {
   Function _onMapCreated = (GoogleMapController controller) {
     controller.setMapStyle(Utils.mapStyle);
   };
+  Completer<GoogleMapController> _mapController = Completer();
+
+  StreamSubscription locationSubscription;
+
+  @override
+  void initState() {
+    final applicationBlock =
+        Provider.of<ApplicationBlock>(context, listen: false);
+    locationSubscription =
+        applicationBlock.selectedLocation.stream.listen((place) {
+      if (place != null) {
+        _gotToPlace(place);
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    final applicationBlock =
+        Provider.of<ApplicationBlock>(context, listen: false);
+    applicationBlock.dispose();
+    locationSubscription.cancel();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    //
     final applicationBlock = Provider.of<ApplicationBlock>(context);
     return Scaffold(
+      backgroundColor: kConstantGoldColor,
       body: (applicationBlock.currentLocation == null)
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Stack(
+          : Column(
               children: [
-                Container(
-                  child: GoogleMap(
-                    compassEnabled: true,
-                    myLocationButtonEnabled: false,
-                    onMapCreated: _onMapCreated,
-                    mapToolbarEnabled: true,
-                    zoomControlsEnabled: true,
-                    zoomGesturesEnabled: true,
-                    myLocationEnabled: true,
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(applicationBlock.currentLocation.latitude,
-                          applicationBlock.currentLocation.longitude),
-                      zoom: 12,
-                    ),
-                  ),
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 60.0, left: 5, right: 5),
+                  padding: EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: Column(
                     children: [
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: kConstantGoldColor,
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20)),
+                          color: Colors.white,
                           border: Border.all(
                             color: kConstantGoldColor,
                           ),
                         ),
                         child: TextField(
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           cursorColor: Colors.black,
                           autofocus: false,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Search Location..',
+                            hintText: '   Search Location..',
                             fillColor: Colors.black,
                             focusColor: Colors.white,
                             suffixIcon: IconButton(
@@ -72,8 +89,8 @@ class _MapState extends State<Map> {
                                 print('Button pressed');
                               },
                               icon: Icon(
-                                LineIcons.locationArrow,
-                                size: 30,
+                                LineIcons.timesCircleAlt,
+                                size: 28,
                                 color: kConstantTextColor,
                               ),
                             ),
@@ -85,23 +102,83 @@ class _MapState extends State<Map> {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment(0.90, 0.90),
-                  child: RawMaterialButton(
-                    onPressed: () {},
-                    elevation: 5,
-                    fillColor: kConstantGoldColor,
-                    child: Icon(
-                      LineIcons.mapPin,
-                      color: kConstantTextColor,
-                      size: 30,
+                Stack(
+                  children: [
+                    Container(
+                      height: 750,
+                      child: GoogleMap(
+                        onMapCreated: (GoogleMapController controller) {
+                          _mapController.complete(controller);
+                        },
+                        myLocationEnabled: true,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(
+                              applicationBlock.currentLocation.latitude,
+                              applicationBlock.currentLocation.longitude),
+                          zoom: 13,
+                        ),
+                      ),
                     ),
-                    padding: EdgeInsets.all(15),
-                    shape: CircleBorder(),
-                  ),
-                )
+                    if (applicationBlock.searchResults != null &&
+                        applicationBlock.searchResults.length != 0)
+                      Container(
+                        height: 300,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                            bottomRight: Radius.circular(20),
+                          ),
+                          color: kConstantGoldColor.withOpacity(0.9),
+                          backgroundBlendMode: BlendMode.darken,
+                        ),
+                      ),
+                    if (applicationBlock.searchResults != null &&
+                        applicationBlock.searchResults.length != 0)
+                      Container(
+                        height: 300,
+                        child: ListView.builder(
+                          itemCount: applicationBlock.searchResults.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                applicationBlock
+                                    .searchResults[index].description,
+                                style: TextStyle(
+                                  letterSpacing: 1.2,
+                                  wordSpacing: 2,
+                                  color: kConstantTextColor,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              onTap: () {
+                                applicationBlock.setSelectedLocation(
+                                    applicationBlock
+                                        .searchResults[index].placeId);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                  ],
+                ),
               ],
             ),
+    );
+  }
+
+  Future<void> _gotToPlace(Place place) async {
+    final GoogleMapController controller = await _mapController.future;
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target:
+              LatLng(place.geometry.location.lat, place.geometry.location.lng),
+          zoom: 14,
+        ),
+      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const kConstantGoldColor = Color(0xFFDDD2B2);
 const kConstantTextColor = Color(0xFF222831);
+const APIKEY = 'AIzaSyC5abPp5yoEKXCTMRUn7RN9ClkrHRfuhJQ';
 
 // This here is for making category buttons;
 
